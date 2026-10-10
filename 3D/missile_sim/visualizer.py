@@ -115,7 +115,7 @@ class SimulationVisualizer:
         ax.set_ylabel("Crossrange Y (m)", fontsize=11, labelpad=10)
         ax.set_zlabel("Altitude Z (m)", fontsize=11, labelpad=10)
         ax.set_title(f"{title}\nTarget Maneuver: {res0.target_name}", fontsize=13, fontweight="bold", pad=15)
-        ax.legend(loc="upper left", bbox_to_anchor=(1.03, 1), fontsize=9, frameon=True)
+        ax.legend(loc="upper left", bbox_to_anchor=(1.03, 1), fontsize=9, frameon=False)
         ax.view_init(elev=26, azim=-55)
         fig.tight_layout()
 
@@ -386,22 +386,35 @@ class SimulationVisualizer:
 
         fig.update_layout(
             title=dict(
-                text=f"<b>{title}</b><br><sup>Target Maneuver: {res0.target_name} | Atmosphere: rho=0.736 kg/m^3 (5000m)</sup>",
+                text=f"<b>{title}</b><br><span style='font-size:12px; color:#4a5568;'>Target Maneuver: {res0.target_name} | Atmosphere: rho=0.736 kg/m^3 (5000m)</span>",
                 x=0.5,
-                font=dict(size=16),
+                y=0.98,
+                xanchor="center",
+                yanchor="top",
+                font=dict(size=16, color="#1a365d"),
             ),
             scene=dict(
-                xaxis=dict(title="Downrange X (m)", backgroundcolor="#f0f2f6", gridcolor="white"),
-                yaxis=dict(title="Crossrange Y (m)", backgroundcolor="#f0f2f6", gridcolor="white"),
-                zaxis=dict(title="Altitude Z (m)", backgroundcolor="#f0f2f6", gridcolor="white"),
+                xaxis=dict(title="Downrange X (m)", backgroundcolor="rgba(240,242,246,0.25)", gridcolor="white"),
+                yaxis=dict(title="Crossrange Y (m)", backgroundcolor="rgba(240,242,246,0.25)", gridcolor="white"),
+                zaxis=dict(title="Altitude Z (m)", backgroundcolor="rgba(240,242,246,0.25)", gridcolor="white"),
                 aspectmode="data",
                 camera=dict(
                     eye=dict(x=-1.5, y=-1.8, z=1.2),
                     up=dict(x=0, y=0, z=1),
                 ),
             ),
-            margin=dict(l=10, r=10, b=10, t=60),
-            legend=dict(x=0.02, y=0.98, bgcolor="rgba(255,255,255,0.85)"),
+            margin=dict(l=20, r=260, b=20, t=80),
+            legend=dict(
+                x=1.02,
+                y=0.98,
+                xanchor="left",
+                yanchor="top",
+                bgcolor="rgba(0,0,0,0)",
+                bordercolor="rgba(0,0,0,0)",
+                borderwidth=0,
+                font=dict(size=11, color="#2d3748"),
+                itemsizing="constant",
+            ),
         )
 
         abs_html_path = os.path.abspath(output_html)

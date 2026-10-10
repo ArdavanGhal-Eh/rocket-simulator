@@ -307,8 +307,9 @@ class MatplotlibAnimationRenderer2D:
         self.ax.scatter([0], [0], color="#00b4d8", marker="o", s=85, edgecolors="#0077b6", lw=1.5, label="Launch Origin [0, 0]", zorder=4)
 
         # Dynamic target trail and marker
-        self.target_trail, = self.ax.plot([], [], color="#e53e3e", lw=2.4, linestyle="--", label="Target Trail", zorder=3)
-        self.target_marker, = self.ax.plot([], [], color="#e53e3e", marker="^", markersize=11, markeredgecolor="#742a2a", markeredgewidth=1.2, linestyle="None", label="Target (Live)", zorder=6)
+        # Dynamic target trail and marker
+        self.target_trail, = self.ax.plot([], [], color="#e53e3e", lw=2.4, linestyle="--", zorder=3)
+        self.target_marker, = self.ax.plot([], [], color="#e53e3e", marker="^", markersize=11, markeredgecolor="#742a2a", markeredgewidth=1.2, linestyle="None", zorder=6)
 
         # Dynamic missile trails and markers
         self.missile_trails = []
@@ -334,9 +335,12 @@ class MatplotlibAnimationRenderer2D:
 
         self.ax.set_xlabel("Downrange X (m)", fontsize=9, fontweight="bold")
         self.ax.set_ylabel("Crossrange / Altitude Y (m)", fontsize=9, fontweight="bold")
-        self.ax.set_title(f"Planar 2D Live Interception Animation | Target: {target_name}", fontsize=10, fontweight="bold")
+        fig = self.ax.get_figure()
+        if fig is not None:
+            fig.suptitle(f"Planar 2D Live Interception Animation | Target: {target_name}", fontsize=10, fontweight="bold", y=0.98)
+        self.ax.set_title("")
         self.ax.grid(True, linestyle=":", alpha=0.6)
-        self.ax.legend(loc="upper left", fontsize=7.5, framealpha=0.9)
+        self.ax.legend(loc="lower center", bbox_to_anchor=(0.5, 1.01), ncol=3, frameon=False, fontsize=7.5)
 
     def update_frame(self, state: PlaybackStateData):
         """Update line trails, object markers, and LOS rays in place."""
@@ -377,13 +381,14 @@ class MatplotlibAnimationRenderer2D:
                     color = c
                     break
 
+            law_lbl = r.law.name if hasattr(r.law, "name") else str(r.law)
             self.ax.scatter(
                 [r.hit_location_missile[0]], [r.hit_location_missile[1]],
                 color=color, marker="*", s=220, edgecolors="black", lw=1.2, zorder=10,
-                label=f"Terminal Impact: Miss={r.miss_distance:.3f}m, t={r.intercept_time:.2f}s"
+                label=f"Impact ({law_lbl}): {r.miss_distance:.3f}m"
             )
 
-        self.ax.legend(loc="upper left", fontsize=7.5, framealpha=0.9)
+        self.ax.legend(loc="lower center", bbox_to_anchor=(0.5, 1.01), ncol=3, frameon=False, fontsize=7.5)
 
 
 class MatplotlibAnimationRenderer3D:
@@ -456,8 +461,8 @@ class MatplotlibAnimationRenderer3D:
         self.ax.scatter([0], [0], [0], color="#00b4d8", marker="o", s=80, edgecolors="#0077b6", label="Launch Origin [0, 0, 0]")
 
         # Dynamic target trail and marker
-        self.target_trail, = self.ax.plot([], [], [], color="#e53e3e", lw=2.4, linestyle="--", label="Target Trail")
-        self.target_marker, = self.ax.plot([], [], [], color="#e53e3e", marker="^", markersize=10, markeredgecolor="#742a2a", linestyle="None", label="Target (Live)")
+        self.target_trail, = self.ax.plot([], [], [], color="#e53e3e", lw=2.4, linestyle="--")
+        self.target_marker, = self.ax.plot([], [], [], color="#e53e3e", marker="^", markersize=10, markeredgecolor="#742a2a", linestyle="None")
 
         self.missile_trails = []
         self.missile_markers = []
@@ -482,9 +487,12 @@ class MatplotlibAnimationRenderer3D:
         self.ax.set_xlabel("Downrange X (m)", fontsize=8, fontweight="bold")
         self.ax.set_ylabel("Crossrange Y (m)", fontsize=8, fontweight="bold")
         self.ax.set_zlabel("Altitude Z (m)", fontsize=8, fontweight="bold")
-        self.ax.set_title(f"3D Spatial Live Interception Animation | Target: {target_name}", fontsize=10, fontweight="bold")
+        fig = self.ax.get_figure()
+        if fig is not None:
+            fig.suptitle(f"3D Spatial Live Interception Animation | Target: {target_name}", fontsize=10, fontweight="bold", y=0.98)
+        self.ax.set_title("")
         self.ax.view_init(elev=26, azim=-55)
-        self.ax.legend(loc="upper left", fontsize=7.5, framealpha=0.9)
+        self.ax.legend(loc="lower center", bbox_to_anchor=(0.5, 0.98), ncol=3, frameon=False, fontsize=7.5)
 
     def update_frame(self, state: PlaybackStateData):
         """Update 3D trajectory trails, markers, and line-of-sight vectors."""
@@ -529,10 +537,11 @@ class MatplotlibAnimationRenderer3D:
                     color = c
                     break
 
+            law_lbl = r.law.name if hasattr(r.law, "name") else str(r.law)
             self.ax.scatter(
                 [r.hit_location_missile[0]], [r.hit_location_missile[1]], [r.hit_location_missile[2]],
                 color=color, marker="*", s=220, edgecolors="black", lw=1.2,
-                label=f"Impact: Miss={r.miss_distance:.3f}m, t={r.intercept_time:.2f}s"
+                label=f"Impact ({law_lbl}): {r.miss_distance:.3f}m"
             )
 
-        self.ax.legend(loc="upper left", fontsize=7.5, framealpha=0.9)
+        self.ax.legend(loc="lower center", bbox_to_anchor=(0.5, 0.98), ncol=3, frameon=False, fontsize=7.5)

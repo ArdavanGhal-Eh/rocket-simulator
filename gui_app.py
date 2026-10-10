@@ -632,12 +632,12 @@ class AerospaceSimGUI:
 
         axes[0, 0].axhline(max_g, color="crimson", linestyle="--", lw=1.5, label=f"Limit ({max_g}G)")
         axes[0, 0].set_title("Lateral Acceleration vs Limit (G)", fontsize=9, fontweight="bold")
-        axes[0, 0].legend(fontsize=7)
+        axes[0, 0].legend(fontsize=7, frameon=False)
         axes[0, 0].grid(True, linestyle=":", alpha=0.5)
 
         axes[0, 1].axvline(t_burn, color="orange", linestyle=":", lw=1.5, label="Burnout")
         axes[0, 1].set_title("Speed Profile (Boost / Coast)", fontsize=9, fontweight="bold")
-        axes[0, 1].legend(fontsize=7)
+        axes[0, 1].legend(fontsize=7, frameon=False)
         axes[0, 1].grid(True, linestyle=":", alpha=0.5)
 
         axes[1, 0].set_title("Relative Range to Target (m)", fontsize=9, fontweight="bold")
@@ -1191,12 +1191,12 @@ class AerospaceSimGUI:
 
         axes[0, 0].axhline(max_g, color="crimson", linestyle="--", lw=1.5, label=f"Limit ({max_g}G)")
         axes[0, 0].set_title("Lateral Steering Acceleration vs Limit (G)", fontsize=9, fontweight="bold")
-        axes[0, 0].legend(fontsize=7)
+        axes[0, 0].legend(fontsize=7, frameon=False)
         axes[0, 0].grid(True, linestyle=":", alpha=0.5)
 
         axes[0, 1].axvline(4.0, color="orange", linestyle=":", lw=1.5, label="Burnout")
         axes[0, 1].set_title("Speed Profile (Boost / Coast)", fontsize=9, fontweight="bold")
-        axes[0, 1].legend(fontsize=7)
+        axes[0, 1].legend(fontsize=7, frameon=False)
         axes[0, 1].grid(True, linestyle=":", alpha=0.5)
 
         axes[1, 0].set_title("Relative Range to Target (m)", fontsize=9, fontweight="bold")

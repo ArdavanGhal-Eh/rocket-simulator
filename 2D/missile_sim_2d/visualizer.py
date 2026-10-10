@@ -97,7 +97,7 @@ class SimulationVisualizer2D:
         ax.set_xlabel("Downrange X (m)", fontsize=11)
         ax.set_ylabel("Altitude / Crossrange Y (m)", fontsize=11)
         ax.set_title(f"{title}\nTarget Maneuver: {res0.target_name}", fontsize=13, fontweight="bold", pad=12)
-        ax.legend(loc="best", fontsize=9, frameon=True)
+        ax.legend(loc="upper left", bbox_to_anchor=(1.02, 1), fontsize=8.5, frameon=False)
         ax.grid(True, linestyle=":", alpha=0.6)
         fig.tight_layout()
 
@@ -336,13 +336,27 @@ class SimulationVisualizer2D:
 
         fig.update_layout(
             title=dict(
-                text=f"<b>{title}</b><br><sup>Target Maneuver: {res0.target_name} | Atmosphere: rho=0.736 kg/m^3 (5000m)</sup>",
+                text=f"<b>{title}</b><br><span style='font-size:12px; color:#4a5568;'>Target Maneuver: {res0.target_name} | Atmosphere: rho=0.736 kg/m^3 (5000m)</span>",
                 x=0.5,
+                y=0.98,
+                xanchor="center",
+                yanchor="top",
+                font=dict(size=16, color="#1a365d"),
             ),
             xaxis=dict(title="Downrange X (m)", gridcolor="#e0e0e0"),
             yaxis=dict(title="Altitude / Crossrange Y (m)", gridcolor="#e0e0e0"),
-            margin=dict(l=40, r=40, b=40, t=80),
-            legend=dict(x=0.02, y=0.98, bgcolor="rgba(255,255,255,0.85)"),
+            margin=dict(l=40, r=260, b=40, t=80),
+            legend=dict(
+                x=1.02,
+                y=0.98,
+                xanchor="left",
+                yanchor="top",
+                bgcolor="rgba(0,0,0,0)",
+                bordercolor="rgba(0,0,0,0)",
+                borderwidth=0,
+                font=dict(size=11, color="#2d3748"),
+                itemsizing="constant",
+            ),
         )
 
         abs_html_path = os.path.abspath(output_html)
