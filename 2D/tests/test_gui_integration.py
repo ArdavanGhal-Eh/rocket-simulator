@@ -27,10 +27,20 @@ DIR_3D = os.path.join(BASE_DIR, "3D")
 if DIR_3D not in sys.path:
     sys.path.insert(0, DIR_3D)
 
+try:
+    import tkinter as tk
+    _test_root = tk.Tk()
+    _test_root.withdraw()
+    _test_root.destroy()
+    HAS_TK = True
+except Exception:
+    HAS_TK = False
+
 from gui_app import AerospaceSimGUI
 from animation_controller import AnimationState
 
 
+@unittest.skipIf(not HAS_TK, "Tkinter GUI display not available in headless environment")
 class TestGUILiveAnimationIntegration(unittest.TestCase):
 
     @classmethod

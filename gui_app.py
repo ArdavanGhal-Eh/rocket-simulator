@@ -25,7 +25,10 @@ if DIR_2D not in sys.path:
     sys.path.insert(0, DIR_2D)
 
 import matplotlib
-matplotlib.use("TkAgg")
+try:
+    matplotlib.use("TkAgg")
+except (ImportError, ValueError):
+    matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 
