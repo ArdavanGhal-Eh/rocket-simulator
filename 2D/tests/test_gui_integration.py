@@ -51,9 +51,14 @@ class TestGUILiveAnimationIntegration(unittest.TestCase):
         cls.mock_error = cls.patch_error.start()
         cls.mock_warn = cls.patch_warn.start()
 
-        cls.root = tk.Tk()
-        cls.root.withdraw()  # Headless Tkinter window
-        cls.app = AerospaceSimGUI(cls.root)
+        try:
+            cls.root = tk.Tk()
+            cls.root.withdraw()  # Headless Tkinter window
+            cls.app = AerospaceSimGUI(cls.root)
+        except Exception as e:
+            cls.patch_error.stop()
+            cls.patch_warn.stop()
+            raise unittest.SkipTest(f"Tkinter/Tcl not available in test environment: {e}")
 
     @classmethod
     def tearDownClass(cls):
