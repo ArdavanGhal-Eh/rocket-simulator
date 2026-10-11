@@ -35,6 +35,7 @@
 ====================================================================================================
 """
 
+from __future__ import annotations
 import argparse
 import os
 import sys
@@ -52,7 +53,7 @@ if hasattr(sys.stdout, "reconfigure"):
     except Exception:
         pass
 
-from typing import List, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 import numpy as np
 
 from missile_sim_2d.config import MissileConfig2D, TargetConfig2D, SimulationConfig2D
