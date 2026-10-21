@@ -139,7 +139,7 @@ def calculate_2d_pure_pursuit(
     Calculate 2D Pure Pursuit (PP) command acceleration vector.
     الگوریتم تعقیب محض (Pure Pursuit):
     در این روش دماغه و بردار سرعت موشک در هر لحظه مستقیماً به سمت موقعیت جاری هدف هدایت می‌شود.
-    
+
     فرمولاسیون کینماتیکی:
         بردار سرعت موشک: v_M با زاویه جهت‌گیری gamma_M = atan2(v_M_y, v_M_x)
         زاویه خط دید: lambda = atan2(R_y, R_x)
@@ -147,7 +147,7 @@ def calculate_2d_pure_pursuit(
         نرخ چرخش زاویه هدایت دماغه: gamma_dot = lambda_dot + K_p * sin(eta)
         بردار شتاب جانبی عمود بر سرعت موشک:
             a_cmd = |v_M| * (lambda_dot + K_p * sin(eta)) * n_hat_vM
-        
+
     Args:
         kinematics: مقادیر کینماتیک نسبی لحظه‌ای Kinematics2D
         v_M: بردار سرعت کنونی موشک [vx, vy]
