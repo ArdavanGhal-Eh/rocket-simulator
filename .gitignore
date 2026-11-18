@@ -35,3 +35,6 @@ venv/
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+# Nightly Hardened Hygiene Rules
+*.key
